@@ -1,0 +1,5 @@
+.env
+.langgraph_api/
+myenv_flowers/
+__pycache__/
+*.pckl

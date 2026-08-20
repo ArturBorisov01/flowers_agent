@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "calculator_agent": "test.lang_graph_tests.4_agent_with_memory:react_graph_memory"
+  },
+  "env": ".env"
+}
