@@ -1,26 +1,38 @@
 # services/llm_client.py
-import os
 import httpx
 from typing import Any, Optional
 
+from langchain_openrouter import ChatOpenRouter
+from core.config import settings
 
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
+llm = ChatOpenRouter(
+    model=settings.model_name,
+    temperature=0,
+    max_tokens=1024,
+    max_retries=2,
+)
 
-async def chat_completion(messages: list[dict], tools: Optional[list[Any]] = None) -> dict:
-    """Основной вызов модели с полной историей сообщений."""
-    # print("DEBUG key:", os.getenv("OPENROUTER_API_KEY"))
+
+async def chat_completion(
+    messages: list[dict],
+    tools: Optional[list[Any]] = None,
+    json_mode: bool = False,
+) -> dict:
+    """Основной вызов модели с полной историей сообщений (сырой HTTP, без LangChain)."""
     headers = {
-        "Authorization": f"Bearer {os.getenv('OPENROUTER_API_KEY')}",
+        "Authorization": f"Bearer {settings.openrouter_api_key}",
         "Content-Type": "application/json",
     }
     payload = {
-        "model": os.getenv("MODEL_NAME"),
+        "model": settings.model_name,
         "messages": messages,
-        "response_format": {"type": "json_object"}, # если модель поддерживает
     }
     if tools:
         payload["tools"] = tools
+    if json_mode:
+        payload["response_format"] = {"type": "json_object"}
 
     async with httpx.AsyncClient(timeout=15) as client:
         try:

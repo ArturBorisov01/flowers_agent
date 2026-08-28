@@ -1,13 +1,17 @@
-from typing import TypedDict, Optional
+# agents\state.py
+from langgraph.graph import MessagesState
+from typing import Optional
 
 
-class AgentState(TypedDict, total=False):
-    message: str          # входящее сообщение клиента
-    summary: str            # саммари диалога (входит и обновляется)
+class AgentState(MessagesState):
+    """MessagesState уже содержит поле `messages: list[BaseMessage]`
+    с автоматическим reducer'ом (add_messages), который сам склеивает
+    историю диалога — не нужно вручную append'ить."""
+
     customer: dict
     channel: dict
+    summary: str
     agent_name: str
     is_spam: bool
-    messages: list[dict]     # история для tool-calling loop (формат OpenAI)
-    reply: str                # финальный ответ агента
+    spam_reason: Optional[str]
     escalate: bool

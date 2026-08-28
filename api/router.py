@@ -1,3 +1,4 @@
+# api\router.py
 from fastapi import APIRouter
 from core.config import semaphore
 from api.schemas import (
@@ -21,8 +22,14 @@ async def ask_llm(request: TestConnectionRequest):
 @router.post("/generate", response_model=GenerateResponse)
 async def generate_endpoint(request: GenerateRequest):
     async with semaphore:
-        result = await chat_generation(request.message, agent_name=request.agent_name)
-
+        result = await chat_generation(
+            request.message,
+            agent_name=request.agent_name,
+            summary=request.summary,
+            customer=request.customer.model_dump(),
+            channel=request.channel.model_dump(),
+        )
+        
         return GenerateResponse(
             message=result.get("message", ""),
             summary=result.get("summary", ""),
