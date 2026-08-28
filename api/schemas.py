@@ -7,14 +7,14 @@ class TestConnectionRequest(BaseModel):
 
 
 class Customer(BaseModel):
-    id: int
+    id: int = 1
     name: Optional[str] = None
     phone: Optional[str] = None
 
 
 class Channel(BaseModel):
     type: str
-    chatId: str
+    chatId: str = '1'
 
 
 class GenerateRequest(BaseModel):
@@ -22,7 +22,7 @@ class GenerateRequest(BaseModel):
     channel: Channel
     message: str
     summary: Optional[str] = None
-    agent_name: str
+    agent_name: str = 'sales'
 
 
 class GenerateResponse(BaseModel):

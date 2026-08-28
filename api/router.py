@@ -5,7 +5,6 @@ from api.schemas import (
     GenerateRequest,
     GenerateResponse,
 )
-from llm_service import process_message
 from services.llm_client import process_message
 from services.chat_generation import chat_generation
 

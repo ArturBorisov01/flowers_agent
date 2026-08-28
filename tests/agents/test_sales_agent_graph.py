@@ -5,7 +5,7 @@ import asyncio
 from services.chat_generation import chat_generation
 
 async def main():
-    result = await chat_generation("Есть ли у вас беспроводные наушники?", agent_name="sales")
+    result = await chat_generation("Есть ли у вас розы?", agent_name="sales")
     print(result)
 
 if __name__ == "__main__":

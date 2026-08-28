@@ -17,6 +17,7 @@ async def chat_completion(messages: list[dict], tools: Optional[list[Any]] = Non
     payload = {
         "model": os.getenv("MODEL_NAME"),
         "messages": messages,
+        "response_format": {"type": "json_object"}, # если модель поддерживает
     }
     if tools:
         payload["tools"] = tools

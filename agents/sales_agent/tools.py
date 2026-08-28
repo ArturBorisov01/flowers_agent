@@ -1,6 +1,6 @@
 import httpx
 
-SEARCH_URL = "http://172.22.120.240:3000/product/search"
+SEARCH_URL = "http://10.175.252.240:3000/product/search"
 
 
 async def search_products(query: str) -> list:
